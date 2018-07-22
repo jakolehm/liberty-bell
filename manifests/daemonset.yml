@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: liberty-bell
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: liberty-bell
+  template:
+    metadata:
+      labels:
+        app: liberty-bell
+      annotations:
+        scheduler.alpha.kubernetes.io/critical-pod: ''
+    spec:
+      containers:
+      - name: api
+        image: quay.io/jakolehm/liberty-bell:latest
+        args:
+          - "puma"
+          - "-b tcp://127.0.0.1:9393"
+        ports:
+        - containerPort: 9393
+          hostPort: 9393
+        resources:
+          requests:
+            cpu: 10m
+            memory: 32Mi
+          limits:
+            cpu: 30m
+            memory: 64Mi
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 9393
+          periodSeconds: 10
+          initialDelaySeconds: 10
+          failureThreshold: 6
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 9393
+          periodSeconds: 10
+      hostNetwork: true
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      nodeSelector:
+        node-role.kubernetes.io/master: ""

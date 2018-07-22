@@ -1,0 +1,6 @@
+version: "2.1"
+services:
+  api:
+    build: .
+    ports:
+      - 9393:9393
