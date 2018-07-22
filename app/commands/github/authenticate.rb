@@ -4,7 +4,7 @@ require_relative '../authenticate/command'
 
 module Github
   class Authenticate < Authenticate::Command
-    GITHUB_API = 'https://api.github.com'.freeze
+    GITHUB_API = 'https://api.github.com'
 
     class GithubError < ::Authenticate::Error
     end
@@ -43,7 +43,7 @@ module Github
           resp.body
         )
       else
-        raise GithubError.new(resp.reason)
+        raise GithubError, resp.reason
       end
     end
 
@@ -59,7 +59,7 @@ module Github
           "#{team.dig('organization', 'login')}/#{team['slug']}"
         }
       else
-        raise GithubError.new(resp.reason)
+        raise GithubError, resp.reason
       end
     end
 

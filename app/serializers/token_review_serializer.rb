@@ -6,7 +6,7 @@ class TokenReviewSerializer < JsonSerializer
     attribute :uid
     attribute :groups
   end
-  
+
   class StatusSerializer < JsonSerializer
     attribute :authenticated
     attribute :user, UserSerializer

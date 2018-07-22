@@ -4,8 +4,7 @@ require_relative '../authenticate/command'
 
 module Gitlab
   class Authenticate < Authenticate::Command
-
-    GITLAB_API = ENV.fetch('GITLAB_API') { 'https://gitlab.com/api/v4' }
+    GITLAB_API = ENV.fetch('GITLAB_API') { 'https://gitlab.com/api' }
 
     class GitlabError < ::Authenticate::Error
     end
@@ -41,7 +40,7 @@ module Gitlab
           resp.body
         )
       else
-        raise GitlabError.new(resp.reason)
+        raise GitlabError, resp.reason
       end
     end
 
@@ -51,10 +50,10 @@ module Gitlab
       if resp.code == 200
         groups = JSON.parse(resp.body)
         groups.map { |group|
-          "#{group['full_path']}"
+          group['full_path']
         }
       else
-        raise GitlabError.new(resp.reason)
+        raise GitlabError, resp.reason
       end
     end
 
@@ -66,7 +65,7 @@ module Gitlab
     end
 
     def gitlab_url(path)
-      "#{GITLAB_API}#{path}"
+      "#{GITLAB_API}/v4#{path}"
     end
   end
 end
