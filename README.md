@@ -12,7 +12,7 @@ You can deploy the `liberty-bell` using [the example DaemonSet manifest](https:/
 kubectl create -f https://raw.githubusercontent.com/jakolehm/liberty-bell/master/manifests/daemonset.yaml
 ```
 
-Next, you need to configure Kubernetese apiserver to verify bearer token using `liberty-bell`. 
+Next, you need to configure Kubernetes apiserver to verify bearer token using `liberty-bell`. 
 
 See [Kubernetes](https://kubernetes.io/docs/admin/authentication/#webhook-token-authentication) documentation how to pass configuration for apiserver.
 
