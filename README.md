@@ -6,7 +6,7 @@ Liberty Bell implements a [Kubernetes Webhook Token Authenticator](https://kuber
 
 ## Usage
 
-You can deploy the `liberty-bell` using [the example DaemonSet manifest](https://github.com/jakolehm/liberty-bell/blob/master/manifests/daemonset.yaml). It is recommended to run the authenticator on your Kubernetes master using host networking so that the apiserver can access the authenticator through the loopback interface.
+You can deploy the `liberty-bell` using [the example DaemonSet manifest](https://github.com/jakolehm/liberty-bell/blob/master/manifests/daemonset.yml). It is recommended to run the authenticator on your Kubernetes master using host networking so that the apiserver can access the authenticator through the loopback interface.
 
 ```
 kubectl create -f https://raw.githubusercontent.com/jakolehm/liberty-bell/master/manifests/daemonset.yml
