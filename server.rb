@@ -15,9 +15,10 @@ class Server < Roda
   end
 
   # @param provider [Authenticate::Command]
+  # @param data [Hash]
   # @return [Hash]
-  def authenticate_with(provider)
-    outcome = provider.run(r.POST)
+  def authenticate_with(provider, data)
+    outcome = provider.run(data)
     if outcome.success?
       TokenReviewSerializer.new(outcome.result).as_json
     else
@@ -29,13 +30,13 @@ class Server < Roda
   route do |r|
     r.on 'github' do
       r.post do
-        authenticate_with(Github::Authenticate)
+        authenticate_with(Github::Authenticate, r.POST)
       end
     end
 
     r.on 'gitlab' do
       r.post do
-        authenticate_with(Gitlab::Authenticate)
+        authenticate_with(Gitlab::Authenticate, r.POST)
       end
     end
 
