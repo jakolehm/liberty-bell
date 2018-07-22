@@ -1,6 +1,7 @@
 # Liberty Bell - Kubernetes Token Authenticator
 
 ![liberty-bell](https://bpsh2.hs.llnwd.net/e1/contenthub-cdn-origin/media/casinoeuro/casinoeuro_blog/liberty_bell_slot_600.jpg)
+
 Liberty Bell implements a [Kubernetes Webhook Token Authenticator](https://kubernetes.io/docs/admin/authentication/#webhook-token-authentication) for authenticating users using [GitHub](https://github.com) or [Gitlab](https://gitlab.com) Personal Access Tokens. Authenticator also configures groups of authenticated user appropriately. This allows cluster administrator to setup RBAC rules based on membership in groups.
 
 ## Usage
