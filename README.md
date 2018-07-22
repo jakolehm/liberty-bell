@@ -6,25 +6,19 @@ Liberty Bell implements a [Kubernetes Webhook Token Authenticator](https://kuber
 
 ## Usage
 
-You need to run the `liberty-bell` using [the example DaemonSet manifest](https://github.com/jakolehm/liberty-bell/blob/master/manifests/daemonset.yaml). It is recommended to run the authenticator on your Kubernetes master using host networking so that the apiserver can access the authenticator through the loopback interface.
+You can deploy the `liberty-bell` using [the example DaemonSet manifest](https://github.com/jakolehm/liberty-bell/blob/master/manifests/daemonset.yaml). It is recommended to run the authenticator on your Kubernetes master using host networking so that the apiserver can access the authenticator through the loopback interface.
 
 ```
 kubectl create -f https://raw.githubusercontent.com/jakolehm/liberty-bell/master/manifests/daemonset.yaml
 ```
 
-Next, you need to configure Kubernetese apiserver to verify bearer token using this authenticator. 
+Next, you need to configure Kubernetese apiserver to verify bearer token using `liberty-bell`. 
 
 See [Kubernetes](https://kubernetes.io/docs/admin/authentication/#webhook-token-authentication) documentation how to pass configuration for apiserver.
 
 If you are using [Kontena Pharos](https://kontena.io/pharos), configuration can be passed via [cluster.yml](https://pharos.sh/docs/usage/#webhook-token-authentication)
 
-## Github
-
-### Group Mapping
-
-Kubernetes groups are constructed as `<organization>/<team>`. For example if Github user belongs to `testers` team at `acme` organization then group name would be `acme/testers` in Kubernetes.
-
-### Configuration
+### Github Configuration
 
 ```yaml
 ---
@@ -45,21 +39,17 @@ contexts:
 current-context: webhook
 ```
 
+#### Group Mapping
+
+Kubernetes groups are constructed as `<organization>/<team>`. For example if Github user belongs to `testers` team at `acme` organization then group name would be `acme/testers` in Kubernetes.
 
 
-## Gitlab Config
-
-### Group Mapping
-
-Kubernetes groups are constructed as `<group>/<subgroup>`.
-
-### Configuration
+### Gitlab Configuration
 
 ```yaml
 ---
 kind: Config
 apiVersion: v1
-preferences: {}
 clusters:
 - name: liberty-bell
   cluster:
@@ -74,6 +64,10 @@ contexts:
     user: kube-apiserver
 current-context: webhook
 ```
+
+#### Group Mapping
+
+Kubernetes groups are constructed as `<group>/<subgroup>`.
 
 ## Using with RBAC
 
